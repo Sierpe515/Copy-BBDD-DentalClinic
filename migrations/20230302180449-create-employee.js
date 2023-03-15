@@ -23,13 +23,15 @@ module.exports = {
           key: 'id'
         }
       },
+      image: {
+        type: Sequelize.STRING,
+      },
       collegiate_number: {
         type: Sequelize.STRING,
         unique: true
       },
       schedule: {
         type: Sequelize.STRING,
-        unique: true
       },
       createdAt: {
         allowNull: false,
