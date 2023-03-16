@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors')
 
 const db = require('./db.js');
 const { User, Role, User_Role } = require('./models/index');
@@ -6,11 +7,19 @@ require('dotenv').config();
 
 const router = require('./router')
 
+let corsOptions = {
+    origin: "*",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    preflightContinue: false,
+    optionsSuccessStatus: 204
+};
+
 const app = express();
 app.use(express.static('public'));
 
 app.use(express.json());
 app.use(router)
+app.use(cors(corsOptions))
 
 const PORT = process.env.PORT || 4000;
 
