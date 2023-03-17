@@ -18,8 +18,8 @@ const app = express();
 app.use(express.static('public'));
 
 app.use(express.json());
-app.use(router)
 app.use(cors(corsOptions))
+app.use(router)
 
 const PORT = process.env.PORT || 4000;
 
