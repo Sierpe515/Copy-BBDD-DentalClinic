@@ -69,6 +69,7 @@ authController.login = async (req, res) => {
         const token = jwt.sign(
             { 
                 userId: user.id,
+                nameUser: user.name,
                 email: user.email,
                 roleId: userRole.map((role) => role.privilege)
             }, 

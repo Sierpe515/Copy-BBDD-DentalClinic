@@ -65,7 +65,11 @@ userController.getAppointmentAdmin = async(req, res) => {
                             attributes: {
                                 exclude: ["id", "nif", "birth_date", "direction", "password", "role_id", "createdAt", "updatedAt"]
                             },
-                        }
+                            // model: Specialty,
+                            // attributes: {
+                            //     exclude: ["id", "createdAt", "updatedAt"]
+                            // } 
+                        },
                     },
                 ],
                 attributes: {

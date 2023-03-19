@@ -8,6 +8,7 @@ const verifyToken = (req, res, next) => {
         const [strategy, token] = authorization.split(" ");
         const decoded = jwt.verify(token, 'secreto');
         req.userId = decoded.userId;
+        req.nameUser = decoded.nameUser;
         req.roleId = decoded.roleId;
         // Necesitamos recuperar antes la info de authController.login
         next();
