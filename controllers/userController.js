@@ -55,7 +55,7 @@ userController.getAppointmentAdmin = async(req, res) => {
                     {
                         model: User,
                         attributes: {
-                            exclude: ["id", "user_id", "nif", "birth_date", "direction", "createdAt", "updatedAt"]
+                            exclude: ["id", "user_id", "nif", "birth_date", "direction", "password", "createdAt", "updatedAt"]
                         } 
                     },
                     {
@@ -70,6 +70,9 @@ userController.getAppointmentAdmin = async(req, res) => {
                             //     exclude: ["id", "createdAt", "updatedAt"]
                             // } 
                         },
+                        attributes: {
+                            exclude: ["id", "user_id", "image", "createdAt", "updatedAt"]
+                        }
                     },
                 ],
                 attributes: {
@@ -115,6 +118,9 @@ userController.getAppointmentDoctor = async(req, res) => {
                             attributes: {
                                 exclude: ["id", "nif", "birth_date", "direction", "password", "role_id", "createdAt", "updatedAt"]
                             },
+                        },
+                        attributes: {
+                            exclude: ["id", "user_id", "image", "createdAt", "updatedAt"]
                         }
                     },
                 ],
