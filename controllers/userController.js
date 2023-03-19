@@ -14,7 +14,7 @@ userController.getAppointment = async(req, res) => {
                     {
                         model: Employee,
                         attributes: {
-                            exclude: ["id", "user_id", "nif", "birth_date", "direction", "collegiate_number", "schedule", "createdAt", "updatedAt"]
+                            exclude: ["id", "user_id", "image", "nif", "birth_date", "direction", "collegiate_number", "schedule", "createdAt", "updatedAt"]
                         },
                         include: {
                             model: User,
