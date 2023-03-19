@@ -13,6 +13,7 @@ router.put('/updateProfile', verifyToken, userController.updateUser);
 router.put('/updateProfile/:id', verifyToken, isAdmin, userController.updateUserByAdmin);
 router.get('/getProfilesDoc', verifyToken, isDoctor, userController.findAllUsersDoctor);
 router.get('/getProfilesAdm', verifyToken, isAdmin, userController.findAllUsersAdmin);
-router.delete('/deleteUser/:id', verifyToken, isAdmin, userController.deleteUserByAdmin)
+router.delete('/deleteUser/:id', verifyToken, isAdmin, userController.deleteUserByAdmin);
+router.get('/getDoctors', userController.findAllDoctors);
 
 module.exports = router;

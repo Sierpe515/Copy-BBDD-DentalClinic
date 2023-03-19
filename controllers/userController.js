@@ -346,5 +346,38 @@ userController.deleteUserByAdmin = async(req, res) => {
     }
 }
 
+userController.findAllDoctors = async (req, res) => {
+    try {
+        const doctor = await Employee.findAll(
+            {
+                include: [
+                    {
+                        model: User,
+                            attributes: {
+                                exclude: ["id", "user_id", "nif", "direction", "password", "createdAt", "updatedAt"]
+                            } 
+                    }
+                ],
+            }
+        )
+
+        return res.json(
+            {
+                success: true,
+                message: "access profiles successfully",
+                user: doctor
+            }
+        );
+    } catch (error) {
+        return res.status(500).json(
+            {
+                success: false,
+                message: "Somenthing went wrong",
+                error_message: error.message
+            }
+        )
+    }
+}
+
 
 module.exports = userController;
