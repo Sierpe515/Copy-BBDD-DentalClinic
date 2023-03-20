@@ -362,11 +362,14 @@ userController.findAllDoctors = async (req, res) => {
                             attributes: {
                                 exclude: ["id", "user_id", "nif", "direction", "password", "createdAt", "updatedAt"]
                             } 
-                    }
-                ],
+                    },{
+                        model: Specialty,
+                        attributes: {
+                            exclude: ["id", "createdAt", "updatedAt"]
+                        } 
+                    }],
             }
         )
-
         return res.json(
             {
                 success: true,
