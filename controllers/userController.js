@@ -114,12 +114,17 @@ userController.getAppointmentDoctor = async(req, res) => {
                     },
                     {
                         model: Employee,
-                        include: {
+                        include: [{
                             model: User,
                             attributes: {
                                 exclude: ["id", "nif", "birth_date", "direction", "password", "role_id", "createdAt", "updatedAt"]
                             },
-                        },
+                        },{
+                            model: Specialty,
+                            attributes: {
+                                exclude: ["id", "createdAt", "updatedAt"]
+                            } 
+                        }],
                         attributes: {
                             exclude: ["id", "user_id", "image", "createdAt", "updatedAt"]
                         }
