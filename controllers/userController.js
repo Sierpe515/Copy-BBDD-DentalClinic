@@ -1,4 +1,4 @@
-const { User, Service, Appointment, Employee } = require('../models');
+const { User, Service, Appointment, Employee, Specialty } = require('../models');
 const bcrypt = require('bcrypt');
 
 const userController = {};
@@ -65,10 +65,10 @@ userController.getAppointmentAdmin = async(req, res) => {
                             attributes: {
                                 exclude: ["id", "nif", "birth_date", "direction", "password", "role_id", "createdAt", "updatedAt"]
                             },
-                            // model: Specialty,
-                            // attributes: {
-                            //     exclude: ["id", "createdAt", "updatedAt"]
-                            // } 
+                            model: Specialty,
+                            attributes: {
+                                exclude: ["id", "createdAt", "updatedAt"]
+                            } 
                         },
                         attributes: {
                             exclude: ["id", "user_id", "image", "createdAt", "updatedAt"]
