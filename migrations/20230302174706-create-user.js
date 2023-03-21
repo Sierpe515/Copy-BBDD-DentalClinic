@@ -11,10 +11,12 @@ module.exports = {
       },
       name: {
         type: Sequelize.STRING,
+        allowNull: false,
         required: true
       },
       surname: {
         type: Sequelize.STRING,
+        allowNull: false,
         required: true
       },
       nif: {
@@ -29,6 +31,7 @@ module.exports = {
       },
       email: {
         type: Sequelize.STRING,
+        allowNull: false,
         required: true,
         unique: true
       },
@@ -37,6 +40,7 @@ module.exports = {
       },
       password: {
         type: Sequelize.STRING,
+        allowNull: false,
         required: true
       },
       createdAt: {

@@ -26,6 +26,9 @@ module.exports = {
       image: {
         type: Sequelize.STRING,
       },
+      description: {
+        type: Sequelize.STRING
+      },
       collegiate_number: {
         type: Sequelize.STRING,
         unique: true

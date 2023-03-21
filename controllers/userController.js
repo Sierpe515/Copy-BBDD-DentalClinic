@@ -25,7 +25,7 @@ userController.getAppointment = async(req, res) => {
                     },
                 ],
                 attributes: {
-                    exclude: ["id", "employee_id", "user_id", "service_id"]
+                    exclude: ["employee_id", "user_id", "service_id"]
                 }
             }
         )
@@ -77,7 +77,7 @@ userController.getAppointmentAdmin = async(req, res) => {
                     },
                 ],
                 attributes: {
-                    exclude: ["id", "employee_id", "user_id", "service_id"]
+                    exclude: ["employee_id", "user_id", "service_id"]
                 }
             }
             

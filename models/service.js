@@ -26,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Service.init({
+    image: DataTypes.STRING,
     treatment: DataTypes.STRING,
     description: DataTypes.STRING,
     price: DataTypes.FLOAT
