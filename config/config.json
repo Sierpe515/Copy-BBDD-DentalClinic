@@ -1,17 +1,18 @@
 {
   "development": {
     "username": "root",
-    "password": "root",
-    "database": "dental clinic 2",
-    "host": "127.0.0.1",
-    "PORT": 3306,
+    "password": "XqbsUkCNo1v45nYbZzjh",
+    "database": "railway",
+    "host": "containers-us-west-134.railway.app",
+    "port": "5663",
     "dialect": "mysql"
   },
   "test": {
     "username": "root",
-    "password": null,
-    "database": "database_test",
+    "password": "root",
+    "database": "dental clinic 2",
     "host": "127.0.0.1",
+    "PORT": 3306,
     "dialect": "mysql"
   },
   "production": {
