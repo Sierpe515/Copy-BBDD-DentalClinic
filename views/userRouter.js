@@ -18,6 +18,7 @@ router.get('/getDoctors', userController.findAllDoctors);
 router.get('/getUpcomingAppAdm', verifyToken, isAdmin, userController.getUpcomingAppointmentAdmin);
 router.get('/getPastAppAdm', verifyToken, isAdmin, userController.getPastAppointmentAdmin);
 router.get('/getUpcomingAppUser', verifyToken, userController.getUpcomingAppointmentUser);
+router.get('/getPastAppUser', verifyToken, userController.getPastAppointmentUser);
 router.get('/getUpcomingAppDoctor', verifyToken, userController.getUpcomingAppointmentDoctor);
 router.get('/getPastAppDoctor', verifyToken, userController.getPastAppointmentDoctor);
 
