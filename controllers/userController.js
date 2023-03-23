@@ -51,6 +51,7 @@ userController.getAppointmentAdmin = async(req, res) => {
     try {
         const userAppointment = await Appointment.findAll(
             {
+                order: [["date", "ASC"]],
                 include: [
                     {
                         model: User,
@@ -105,6 +106,7 @@ userController.getAppointmentDoctor = async(req, res) => {
     try {
         const userAppointment = await Appointment.findAll(
             {
+                order: [["date", "ASC"]],
                 include: [
                     {
                         model: User,
@@ -154,6 +156,7 @@ userController.getAppointmentDoctor = async(req, res) => {
         )
     }
 }
+
 userController.profile = async(req, res) => {
     try {
         const userId = req.userId;
@@ -377,6 +380,368 @@ userController.findAllDoctors = async (req, res) => {
                 user: doctor
             }
         );
+    } catch (error) {
+        return res.status(500).json(
+            {
+                success: false,
+                message: "Somenthing went wrong",
+                error_message: error.message
+            }
+        )
+    }
+}
+
+const { Op } = require('sequelize');
+
+userController.getUpcomingAppointmentUser = async(req, res) => {
+    try {
+        const userAppointment = await Appointment.findAll(
+            {
+                where: { 
+                    user_id: req.userId,
+                    [Op.and]: [
+                        {
+                            date: {
+                                [Op.gte]: new Date(),
+                            },
+                        },
+                    ]
+                },
+                order: [["date", "ASC"]],
+                include: [
+                    {
+                        model: Employee,
+                        attributes: {
+                            exclude: ["id", "user_id", "image", "nif", "birth_date", "direction", "collegiate_number", "schedule", "createdAt", "updatedAt"]
+                        },
+                        include: {
+                            model: User,
+                            attributes: {
+                                exclude: ["id", "nif", "birth_date", "direction", "password", "role_id", "createdAt", "updatedAt"]
+                            },
+                        }
+                    },
+                ],
+                attributes: {
+                    exclude: ["employee_id", "user_id", "service_id"]
+                }
+            }
+        )
+        return res.json(
+            {
+                success: true,
+                message: "Access appointments successfully",
+                userAppointment: userAppointment
+            }
+        )
+    } catch (error) { 
+        return res.status(500).json(
+            {
+            success: false,
+            message: "Somenthing went wrong",
+            error_message: error.message
+            }
+        )
+    }
+}
+
+userController.getPastAppointmentUser = async(req, res) => {
+    try {
+        const userAppointment = await Appointment.findAll(
+            {
+                where: { 
+                    user_id: req.userId,
+                    [Op.and]: [
+                        {
+                            date: {
+                                [Op.lt]: new Date(),
+                            },
+                        },
+                    ]
+                },
+                order: [["date", "DESC"]],
+                include: [
+                    {
+                        model: Employee,
+                        attributes: {
+                            exclude: ["id", "user_id", "image", "nif", "birth_date", "direction", "collegiate_number", "schedule", "createdAt", "updatedAt"]
+                        },
+                        include: {
+                            model: User,
+                            attributes: {
+                                exclude: ["id", "nif", "birth_date", "direction", "password", "role_id", "createdAt", "updatedAt"]
+                            },
+                        }
+                    },
+                ],
+                attributes: {
+                    exclude: ["employee_id", "user_id", "service_id"]
+                }
+            }
+        )
+        return res.json(
+            {
+                success: true,
+                message: "Access appointments successfully",
+                userAppointment: userAppointment
+            }
+        )
+    } catch (error) { 
+        return res.status(500).json(
+            {
+            success: false,
+            message: "Somenthing went wrong",
+            error_message: error.message
+            }
+        )
+    }
+}
+
+userController.getUpcomingAppointmentAdmin = async(req, res) => {
+    try {
+        const userAppointment = await Appointment.findAll(
+            {
+                where: {
+                    [Op.and]: [
+                        {
+                            date: {
+                                [Op.gte]: new Date(),
+                            },
+                        },
+                    ]
+                },
+                order: [["date", "ASC"]],
+                include: [
+                    {
+                        model: User,
+                        attributes: {
+                            exclude: ["id", "user_id", "nif", "birth_date", "direction", "password", "createdAt", "updatedAt"]
+                        } 
+                    },
+                    {
+                        model: Employee,
+                        include: [{
+                            model: User,
+                            attributes: {
+                                exclude: ["id", "nif", "birth_date", "direction", "password", "role_id", "createdAt", "updatedAt"]
+                            },
+                        },{
+                            model: Specialty,
+                            attributes: {
+                                exclude: ["id", "createdAt", "updatedAt"]
+                            } 
+                        }],
+                        attributes: {
+                            exclude: ["id", "user_id", "image", "createdAt", "updatedAt"]
+                        }
+                    },
+                ],
+                attributes: {
+                    exclude: ["employee_id", "user_id", "service_id"]
+                }
+            }
+            
+        )
+    
+        return res.json(
+            {
+                success: true,
+                message: "Access appointments successfully",
+                userAppointment: userAppointment
+            }
+        )
+    } catch (error) {
+        return res.status(500).json(
+            {
+                success: false,
+                message: "Somenthing went wrong",
+                error_message: error.message
+            }
+        )
+    }
+}
+
+userController.getPastAppointmentAdmin = async(req, res) => {
+    try {
+        const userAppointment = await Appointment.findAll(
+            {
+                where: {
+                    [Op.and]: [
+                        {
+                            date: {
+                                [Op.lt]: new Date(),
+                            },
+                        },
+                    ]
+                },
+                order: [["date", "DESC"]],
+                include: [
+                    {
+                        model: User,
+                        attributes: {
+                            exclude: ["id", "user_id", "nif", "birth_date", "direction", "password", "createdAt", "updatedAt"]
+                        } 
+                    },
+                    {
+                        model: Employee,
+                        include: [{
+                            model: User,
+                            attributes: {
+                                exclude: ["id", "nif", "birth_date", "direction", "password", "role_id", "createdAt", "updatedAt"]
+                            },
+                        },{
+                            model: Specialty,
+                            attributes: {
+                                exclude: ["id", "createdAt", "updatedAt"]
+                            } 
+                        }],
+                        attributes: {
+                            exclude: ["id", "user_id", "image", "createdAt", "updatedAt"]
+                        }
+                    },
+                ],
+                attributes: {
+                    exclude: ["employee_id", "user_id", "service_id"]
+                }
+            }
+            
+        )
+    
+        return res.json(
+            {
+                success: true,
+                message: "Access appointments successfully",
+                userAppointment: userAppointment
+            }
+        )
+    } catch (error) {
+        return res.status(500).json(
+            {
+                success: false,
+                message: "Somenthing went wrong",
+                error_message: error.message
+            }
+        )
+    }
+}
+
+userController.getUpcomingAppointmentDoctor = async(req, res) => {
+    try {
+        const userAppointment = await Appointment.findAll(
+            {
+                where: {
+                    [Op.and]: [
+                        {
+                            date: {
+                                [Op.gte]: new Date(),
+                            },
+                        },
+                    ]
+                },
+                order: [["date", "ASC"]],
+                include: [
+                    {
+                        model: User,
+                        attributes: {
+                            exclude: ["id", "user_id", "nif", "birth_date", "direction", "password", "createdAt", "updatedAt"]
+                        } 
+                    },
+                    {
+                        model: Employee,
+                        include: [{
+                            model: User,
+                            attributes: {
+                                exclude: ["id", "nif", "birth_date", "direction", "password", "role_id", "createdAt", "updatedAt"]
+                            },
+                        },{
+                            model: Specialty,
+                            attributes: {
+                                exclude: ["id", "createdAt", "updatedAt"]
+                            } 
+                        }],
+                        attributes: {
+                            exclude: ["id", "user_id", "image", "createdAt", "updatedAt"]
+                        }
+                    },
+                ],
+                attributes: {
+                    exclude: ["id", "employee_id", "user_id", "service_id"]
+                }
+            }
+            
+        )
+        
+        return res.json(
+            {
+                success: true,
+                message: "Access appointments successfully",
+                userAppointment: userAppointment
+            }
+        )
+    } catch (error) {
+        return res.status(500).json(
+            {
+                success: false,
+                message: "Somenthing went wrong",
+                error_message: error.message
+            }
+        )
+    }
+}
+
+userController.getPastAppointmentDoctor = async(req, res) => {
+    try {
+        const userAppointment = await Appointment.findAll(
+            {
+                where: {
+                    [Op.and]: [
+                        {
+                            date: {
+                                [Op.lt]: new Date(),
+                            },
+                        },
+                    ]
+                },
+                order: [["date", "DESC"]],
+                include: [
+                    {
+                        model: User,
+                        attributes: {
+                            exclude: ["id", "user_id", "nif", "birth_date", "direction", "password", "createdAt", "updatedAt"]
+                        } 
+                    },
+                    {
+                        model: Employee,
+                        include: [{
+                            model: User,
+                            attributes: {
+                                exclude: ["id", "nif", "birth_date", "direction", "password", "role_id", "createdAt", "updatedAt"]
+                            },
+                        },{
+                            model: Specialty,
+                            attributes: {
+                                exclude: ["id", "createdAt", "updatedAt"]
+                            } 
+                        }],
+                        attributes: {
+                            exclude: ["id", "user_id", "image", "createdAt", "updatedAt"]
+                        }
+                    },
+                ],
+                attributes: {
+                    exclude: ["id", "employee_id", "user_id", "service_id"]
+                }
+            }
+            
+        )
+        
+        return res.json(
+            {
+                success: true,
+                message: "Access appointments successfully",
+                userAppointment: userAppointment
+            }
+        )
     } catch (error) {
         return res.status(500).json(
             {
