@@ -762,7 +762,11 @@ userController.searchAllUsersAdmin = async (req, res) => {
             {
                 where: {
                     [Op.or]: 
-                        [{ name: userName }, { surname: userName }]
+                        [{ name: {
+                            [Op.like]: `${userName}%`
+                        } }, { surname: {
+                            [Op.like]: `${userName}%`
+                        } }]
                 }
             }
         )
