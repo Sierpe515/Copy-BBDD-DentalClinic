@@ -22,6 +22,7 @@ router.get('/getPastAppUser', verifyToken, userController.getPastAppointmentUser
 router.get('/getUpcomingAppDoctor', verifyToken, userController.getUpcomingAppointmentDoctor);
 router.get('/getPastAppDoctor', verifyToken, userController.getPastAppointmentDoctor);
 router.get('/getProfilesAdm/:name', verifyToken, isAdmin, userController.searchAllUsersAdmin);
+router.get('/getProfilesDoc/:name', verifyToken, isDoctor, userController.searchAllUsersDoctor);
 
 
 module.exports = router;

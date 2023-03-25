@@ -789,5 +789,41 @@ userController.searchAllUsersAdmin = async (req, res) => {
     }
 }
 
+userController.searchAllUsersDoctor = async (req, res) => {
+    try {
+        const userName = req.params.name || req.params.surname;
+        // const userSurname = req.params.surname;
+
+        const findUser = await User.findAll(
+            {
+                where: {
+                    [Op.or]: 
+                        [{ name: {
+                            [Op.like]: `${userName}%`
+                        } }, { surname: {
+                            [Op.like]: `${userName}%`
+                        } }]
+                }
+            }
+        )
+
+        return res.json(
+            {
+                success: true,
+                message: "access profiles successfully",
+                user: findUser
+            }
+        );
+    } catch (error) {
+        return res.status(500).json(
+            {
+                success: false,
+                message: "Somenthing went wrong",
+                error_message: error.message
+            }
+        )
+    }
+}
+
 
 module.exports = userController;
