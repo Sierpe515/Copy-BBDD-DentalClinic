@@ -19,10 +19,12 @@ router.get('/getUpcomingAppAdm', verifyToken, isAdmin, userController.getUpcomin
 router.get('/getPastAppAdm', verifyToken, isAdmin, userController.getPastAppointmentAdmin);
 router.get('/getUpcomingAppUser', verifyToken, userController.getUpcomingAppointmentUser);
 router.get('/getPastAppUser', verifyToken, userController.getPastAppointmentUser);
-router.get('/getUpcomingAppDoctor', verifyToken, userController.getUpcomingAppointmentDoctor);
+router.get('/getUpcomingAppDoc', verifyToken, isDoctor, userController.getUpcomingAppointmentDoctor);
 router.get('/getPastAppDoctor', verifyToken, userController.getPastAppointmentDoctor);
 router.get('/getProfilesAdm/:name', verifyToken, isAdmin, userController.searchAllUsersAdmin);
 router.get('/getProfilesDoc/:name', verifyToken, isDoctor, userController.searchAllUsersDoctor);
+router.get('/getUpcomingAppAdm/:date', verifyToken, isAdmin, userController.searchAllAppointmentsAdmin);
+router.get('/getUpcomingAppDoc/:date', verifyToken, isDoctor, userController.searchAllAppointmentsDoctor);
 
 
 module.exports = router;

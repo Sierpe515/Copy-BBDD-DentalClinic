@@ -825,5 +825,77 @@ userController.searchAllUsersDoctor = async (req, res) => {
     }
 }
 
+userController.searchAllAppointmentsAdmin = async (req, res) => {
+    try {
+        const addDate = req.params.date;
+        // const userSurname = req.params.surname;
+
+        const findApp = await Appointment.findAll(
+            {
+                where: {
+                    [Op.or]: 
+                        [{ date: {
+                            [Op.like]: `${addDate}%`
+                        } }, { hour: {
+                            [Op.like]: `${addDate}%`
+                        } }]
+                }
+            }
+        )
+
+        return res.json(
+            {
+                success: true,
+                message: "access profiles successfully",
+                user: findApp
+            }
+        );
+    } catch (error) {
+        return res.status(500).json(
+            {
+                success: false,
+                message: "Somenthing went wrong",
+                error_message: error.message
+            }
+        )
+    }
+}
+
+userController.searchAllAppointmentsDoctor = async (req, res) => {
+    try {
+        const addDate = req.params.date;
+        // const userSurname = req.params.surname;
+
+        const findApp = await Appointment.findAll(
+            {
+                where: {
+                    [Op.or]: 
+                        [{ date: {
+                            [Op.like]: `${addDate}%`
+                        } }, { hour: {
+                            [Op.like]: `${addDate}%`
+                        } }]
+                }
+            }
+        )
+
+        return res.json(
+            {
+                success: true,
+                message: "access profiles successfully",
+                user: findApp
+            }
+        );
+    } catch (error) {
+        return res.status(500).json(
+            {
+                success: false,
+                message: "Somenthing went wrong",
+                error_message: error.message
+            }
+        )
+    }
+}
+
 
 module.exports = userController;
