@@ -756,7 +756,6 @@ userController.getPastAppointmentDoctor = async(req, res) => {
 userController.searchAllUsersAdmin = async (req, res) => {
     try {
         const userName = req.params.name || req.params.surname;
-        // const userSurname = req.params.surname;
 
         const findUser = await User.findAll(
             {
@@ -792,7 +791,6 @@ userController.searchAllUsersAdmin = async (req, res) => {
 userController.searchAllUsersDoctor = async (req, res) => {
     try {
         const userName = req.params.name || req.params.surname;
-        // const userSurname = req.params.surname;
 
         const findUser = await User.findAll(
             {
