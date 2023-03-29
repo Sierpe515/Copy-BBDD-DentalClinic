@@ -841,15 +841,26 @@ userController.searchAllAppointmentsAdmin = async (req, res) => {
                 order: [["date", "ASC"]],
                 include: [
                     {
-                        model: Employee,
+                        model: User,
                         attributes: {
-                            exclude: ["id", "user_id", "image", "nif", "birth_date", "direction", "collegiate_number", "schedule", "createdAt", "updatedAt"]
-                        },
-                        include: {
+                            exclude: ["id", "user_id", "nif", "birth_date", "direction", "password", "createdAt", "updatedAt"]
+                        } 
+                    },
+                    {
+                        model: Employee,
+                        include: [{
                             model: User,
                             attributes: {
                                 exclude: ["id", "nif", "birth_date", "direction", "password", "role_id", "createdAt", "updatedAt"]
                             },
+                        },{
+                            model: Specialty,
+                            attributes: {
+                                exclude: ["id", "createdAt", "updatedAt"]
+                            } 
+                        }],
+                        attributes: {
+                            exclude: ["id", "user_id", "image", "createdAt", "updatedAt"]
                         }
                     },
                 ],
@@ -895,15 +906,26 @@ userController.searchAllAppointmentsDoctor = async (req, res) => {
                 order: [["date", "ASC"]],
                 include: [
                     {
-                        model: Employee,
+                        model: User,
                         attributes: {
-                            exclude: ["id", "user_id", "image", "nif", "birth_date", "direction", "collegiate_number", "schedule", "createdAt", "updatedAt"]
-                        },
-                        include: {
+                            exclude: ["id", "user_id", "nif", "birth_date", "direction", "password", "createdAt", "updatedAt"]
+                        } 
+                    },
+                    {
+                        model: Employee,
+                        include: [{
                             model: User,
                             attributes: {
                                 exclude: ["id", "nif", "birth_date", "direction", "password", "role_id", "createdAt", "updatedAt"]
                             },
+                        },{
+                            model: Specialty,
+                            attributes: {
+                                exclude: ["id", "createdAt", "updatedAt"]
+                            } 
+                        }],
+                        attributes: {
+                            exclude: ["id", "user_id", "image", "createdAt", "updatedAt"]
                         }
                     },
                 ],
