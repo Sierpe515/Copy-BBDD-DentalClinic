@@ -845,7 +845,7 @@ userController.searchAllAppointmentsAdmin = async (req, res) => {
             {
                 success: true,
                 message: "access profiles successfully",
-                user: findApp
+                userAppointment: findApp
             }
         );
     } catch (error) {
@@ -881,7 +881,7 @@ userController.searchAllAppointmentsDoctor = async (req, res) => {
             {
                 success: true,
                 message: "access profiles successfully",
-                user: findApp
+                userAppointment: findApp
             }
         );
     } catch (error) {
