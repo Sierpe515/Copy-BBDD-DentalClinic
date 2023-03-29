@@ -837,6 +837,24 @@ userController.searchAllAppointmentsAdmin = async (req, res) => {
                         } }, { hour: {
                             [Op.like]: `${addDate}%`
                         } }]
+                },
+                order: [["date", "ASC"]],
+                include: [
+                    {
+                        model: Employee,
+                        attributes: {
+                            exclude: ["id", "user_id", "image", "nif", "birth_date", "direction", "collegiate_number", "schedule", "createdAt", "updatedAt"]
+                        },
+                        include: {
+                            model: User,
+                            attributes: {
+                                exclude: ["id", "nif", "birth_date", "direction", "password", "role_id", "createdAt", "updatedAt"]
+                            },
+                        }
+                    },
+                ],
+                attributes: {
+                    exclude: ["employee_id", "user_id", "service_id"]
                 }
             }
         )
@@ -873,6 +891,24 @@ userController.searchAllAppointmentsDoctor = async (req, res) => {
                         } }, { hour: {
                             [Op.like]: `${addDate}%`
                         } }]
+                },
+                order: [["date", "ASC"]],
+                include: [
+                    {
+                        model: Employee,
+                        attributes: {
+                            exclude: ["id", "user_id", "image", "nif", "birth_date", "direction", "collegiate_number", "schedule", "createdAt", "updatedAt"]
+                        },
+                        include: {
+                            model: User,
+                            attributes: {
+                                exclude: ["id", "nif", "birth_date", "direction", "password", "role_id", "createdAt", "updatedAt"]
+                            },
+                        }
+                    },
+                ],
+                attributes: {
+                    exclude: ["employee_id", "user_id", "service_id"]
                 }
             }
         )
